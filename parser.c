@@ -3,14 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:45:26 by twight            #+#    #+#             */
-/*   Updated: 2019/07/12 03:13:48 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/13 18:05:11 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	parse_options(char **argv, t_cont *c)
+{
+	int		i;
+
+	i = 1;
+	if (argv[i][0] == '-')
+	{
+		if (argv[i][1] == 'f')
+			c->opt.f = TRUE;
+		else if (argv[i][1] == 'c')
+			c->opt.c = TRUE;
+		else if (argv[i][1] == 't')
+			c->opt.t = TRUE;
+		else
+			terminate(ERR_WRONG_OPTION);
+		i++;
+	}
+	if ((c->opt.f == 1 || c->opt.c == 1 || c->opt.t == 1) && argv[i][0] == '-')
+	{
+		if (argv[i][1] == 'f')
+			c->opt.f = TRUE;
+		else if (argv[i][1] == 'c' && c->opt.f != TRUE)
+			c->opt.c = TRUE;
+		else if (argv[i][1] == 't')
+			c->opt.t = TRUE;
+		else
+			terminate(ERR_WRONG_OPTION);
+		i++;
+	}
+	return (i);
+}
 
 /*
 ** If the numbers were sent as separate arguments of argv, parses them and
@@ -21,7 +53,7 @@ static void	parse_arr(t_cont *cont, int argc, char **argv)
 {
 	int	i;
 
-	i = 1;
+	i = parse_options(argv, cont);
 	while (i < argc)
 	{
 		if (!ft_isint(argv[i], 0))
@@ -70,8 +102,11 @@ t_cont		*parser(int argc, char **argv)
 	cont->a_size = 0;
 	cont->b_size = 0;
 	cont->total = 0;
-	cont->options = FALSE;
-	if (argc == 2 && !ft_isnum(argv[1], 10))
+	cont->opt.f = FALSE;
+	cont->opt.c = FALSE;
+	cont->opt.t = FALSE;
+	cont->fd == 0 ? cont->fd = 1 : cont->fd;
+	if (argc == 2 && !ft_isnum(argv[1], 10)) //) || !ft_isalpha(argv[1][1]
 		parse_str(cont, argv[1]);
 	else
 		parse_arr(cont, argc, argv);

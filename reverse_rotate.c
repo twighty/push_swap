@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:50:18 by twight            #+#    #+#             */
-/*   Updated: 2019/07/12 03:12:07 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/13 18:08:28 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	rra(t_cont *cont)
 		A_FIRST->prev = new_start;
 		A_FIRST = new_start;
 		cont->total++;
-		ft_putstr("rra\n");
+		ft_putendl_fd("rra", cont->fd);
 	}
 }
 
@@ -44,7 +44,7 @@ void	rrb(t_cont *cont)
 		B_FIRST->prev = new_start;
 		B_FIRST = new_start;
 		cont->total++;
-		ft_putstr("rrb\n");
+		ft_putendl_fd("rrb", cont->fd);
 	}
 }
 
@@ -73,5 +73,5 @@ void	rrr(t_cont *cont)
 		B_FIRST = new_start;
 	}
 	cont->total++;
-	ft_putstr("rrr\n");
+	ft_putendl_fd("rrr", cont->fd);
 }

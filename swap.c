@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:28:55 by twight            #+#    #+#             */
-/*   Updated: 2019/07/12 01:48:25 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/13 18:06:18 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	sa(t_cont *c)
 		tmp->next = c->a_start;
 		c->a_start = tmp;
 		c->total++;
-		ft_putstr("sa\n");
+		ft_putendl_fd("sa", c->fd);
 	}
 }
 
@@ -46,7 +46,7 @@ void	sb(t_cont *c)
 		tmp->next = c->b_start;
 		c->b_start = tmp;
 		c->total++;
-		ft_putstr("sb\n");
+		ft_putendl_fd("sb", c->fd);
 	}
 }
 
@@ -75,5 +75,5 @@ void	ss(t_cont *c)
 		tmp->next = c->b_start;
 		c->b_start = tmp;
 	}
-	ft_putstr("ss\n");
+	ft_putendl_fd("ss", c->fd);
 }

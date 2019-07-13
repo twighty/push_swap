@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:44:52 by twight            #+#    #+#             */
-/*   Updated: 2019/07/12 03:13:27 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/13 18:08:08 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ra(t_cont *cont)
 		A_LAST->next = new_end;
 		A_LAST = new_end;
 		cont->total++;
-		ft_putstr("ra\n");
+		ft_putendl_fd("ra", cont->fd);
 	}
 }
 
@@ -44,7 +44,7 @@ void	rb(t_cont *cont)
 		B_LAST->next = new_end;
 		B_LAST = new_end;
 		cont->total++;
-		ft_putstr("ra\n");
+		ft_putendl_fd("rb", cont->fd);
 	}
 }
 
@@ -73,5 +73,5 @@ void	rr(t_cont *cont)
 		B_LAST = new_end;
 	}
 	cont->total++;
-	ft_putstr("rr\n");
+	ft_putendl_fd("rr", cont->fd);
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:43:42 by twight            #+#    #+#             */
-/*   Updated: 2019/07/12 03:32:37 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/13 17:58:35 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __PUSH_SWAP_H
 # define __PUSH_SWAP_H
 
+# include <fcntl.h>
 # include <stdlib.h>
 # include "libft.h"
 
@@ -26,7 +27,9 @@ values)"
 # define ERR_DUP "Program execution has been terminated (Error: duplicate \
 values)"
 # define ERR_NO_NUMBERS "Program execution has been terminated (Error: \
-insufficient amount of values (must be at least two))"
+insufficient number of values (must be at least two))"
+# define ERR_WRONG_OPTION "Program execution has been terminated (Error: \
+unknown option(s))"
 
 # define A_FIRST cont->a_start
 # define A_FIRST_VALUE cont->a_start->value
@@ -57,10 +60,17 @@ typedef struct		s_node
 	struct s_node	*next;
 }					t_node;
 
+typedef struct		s_opt
+{
+	short			f;
+	short			c;
+	short			t;
+}					t_opt;
+
 typedef struct 		s_cont
 {
 	int				index;
-	int				options;
+	t_opt			opt;
 	int				a_size;
 	int				b_size;
 	int				total;
@@ -69,6 +79,7 @@ typedef struct 		s_cont
 	t_node			*b_start;
 	t_node			*a_end;
 	t_node			*b_end;
+	int				fd;
 }					t_cont;
 
 /*
