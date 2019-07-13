@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 17:48:20 by twight            #+#    #+#             */
-/*   Updated: 2019/07/12 03:53:29 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/13 16:36:36 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	free_container(t_cont *container)
+{
+	t_node	*tmp;
+	
+	if (container->a_start)
+	{
+		while (container->a_start)
+		{
+			tmp = container->a_start->next;
+			free(container->a_start);
+			container->a_start = tmp;
+		}
+	}
+	free(container);
+}
 
 int		main(int argc, char **argv)
 {
@@ -21,6 +37,7 @@ int		main(int argc, char **argv)
 		container = parser(argc, argv);
 		init_sort(container);
 		quicksort(container);
+		free_container(container);
 	}
 	return (0);
 }
