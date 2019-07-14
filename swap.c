@@ -6,7 +6,7 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:28:55 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 18:06:18 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/13 19:17:56 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	sa(t_cont *c)
 		tmp->next = c->a_start;
 		c->a_start = tmp;
 		c->total++;
+		c->opt.c == TRUE ? ft_putstr("\e[m") : 0;
 		ft_putendl_fd("sa", c->fd);
+		c->opt.c == TRUE ? ft_putstr("\e[2m") : 0;
 	}
 }
 

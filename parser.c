@@ -6,7 +6,7 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:45:26 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 18:05:11 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/13 18:45:57 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ t_cont		*parser(int argc, char **argv)
 	cont->opt.f = FALSE;
 	cont->opt.c = FALSE;
 	cont->opt.t = FALSE;
-	cont->fd == 0 ? cont->fd = 1 : cont->fd;
 	if (argc == 2 && !ft_isnum(argv[1], 10)) //) || !ft_isalpha(argv[1][1]
 		parse_str(cont, argv[1]);
 	else

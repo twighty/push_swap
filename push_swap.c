@@ -6,13 +6,13 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 17:48:20 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 18:12:16 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/13 19:06:17 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_container(t_cont *container)
+static void	free_container(t_cont *container)
 {
 	t_node	*tmp;
 	
@@ -28,30 +28,33 @@ void	free_container(t_cont *container)
 	free(container);
 }
 
-void	options(t_cont *cont)
+static void	file_options(t_cont *cont, short done)
 {
-	if (cont->opt.f == TRUE)
+	if (cont->opt.f == TRUE && done == FALSE)
 	{
-		cont->fd = open("result.log", O_CREAT, O_RDWR);
+		cont->fd = open("result.log", O_WRONLY | O_CREAT, 0644);
 	}
+	if (cont->opt.t == TRUE && done == TRUE)
+	{
+		ft_putstr_fd("Total number of moves: ", cont->fd);
+		ft_putendl_fd(ft_itoa(cont->total), cont->fd);
+	}
+	if (cont->fd != 1 && done == TRUE)
+		close(cont->fd);
+	cont->fd == 0 ? cont->fd = 1 : cont->fd;
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_cont		*container;
 
 	if (argc >= 2)
 	{
 		container = parser(argc, argv);
-		options(container);
+		file_options(container, FALSE);
 		init_sort(container);
 		quicksort(container);
-		if (container->opt.t == TRUE)
-		{
-			ft_putstr("Total number of moves: ");
-			ft_putstr(ft_itoa(container->total));
-			ft_putstr("\n");
-		}
+		file_options(container, TRUE);
 		free_container(container);
 	}
 	else
