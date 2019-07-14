@@ -6,7 +6,7 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:38:38 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 18:08:55 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/14 16:45:12 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	pa(t_cont *cont)
 		A_FIRST = tmp;
 		!(A_FIRST->next) ? A_LAST = A_FIRST : 0;
 		cont->total++;
+		cont->opt.c == TRUE ? ft_putstr("\e[38;5;137m") : 0;
 		ft_putendl_fd("pa", cont->fd);
+		cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
 		cont->a_size++;
 		cont->b_size--;
 	}
@@ -48,7 +50,9 @@ void	pb(t_cont *cont)
 		B_FIRST = tmp;
 		!(B_FIRST->next) ? B_LAST = B_FIRST : 0;
 		cont->total++;
+		cont->opt.c == TRUE ? ft_putstr("\e[38;5;138m") : 0;
 		ft_putendl_fd("pb", cont->fd);
+		cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
 		cont->b_size++;
 		cont->a_size--;
 	}

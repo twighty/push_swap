@@ -6,40 +6,39 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:45:26 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 18:45:57 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/14 21:23:55 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/*
+** Checks if any option flags are present.
+*/
 
 static int	parse_options(char **argv, t_cont *c)
 {
 	int		i;
 
 	i = 1;
-	if (argv[i][0] == '-')
+	while (i <= 2)
 	{
-		if (argv[i][1] == 'f')
-			c->opt.f = TRUE;
-		else if (argv[i][1] == 'c')
-			c->opt.c = TRUE;
-		else if (argv[i][1] == 't')
-			c->opt.t = TRUE;
+		if ((argv[i][0] == '-' && ft_isalpha(argv[i][1]) && \
+		(i == 1 || \
+		(i == 2 && (c->opt.f == 1 || c->opt.c == 1 || c->opt.t == 1)))))
+		{
+			if (argv[i][1] == 'f')
+				c->opt.f = TRUE;
+			else if (argv[i][1] == 'c' && c->opt.f != TRUE)
+				c->opt.c = TRUE;
+			else if (argv[i][1] == 't')
+				c->opt.t = TRUE;
+			else
+				terminate(ERR_WRONG_OPTION);
+			i++;
+		}
 		else
-			terminate(ERR_WRONG_OPTION);
-		i++;
-	}
-	if ((c->opt.f == 1 || c->opt.c == 1 || c->opt.t == 1) && argv[i][0] == '-')
-	{
-		if (argv[i][1] == 'f')
-			c->opt.f = TRUE;
-		else if (argv[i][1] == 'c' && c->opt.f != TRUE)
-			c->opt.c = TRUE;
-		else if (argv[i][1] == 't')
-			c->opt.t = TRUE;
-		else
-			terminate(ERR_WRONG_OPTION);
-		i++;
+			break ;
 	}
 	return (i);
 }
@@ -105,7 +104,7 @@ t_cont		*parser(int argc, char **argv)
 	cont->opt.f = FALSE;
 	cont->opt.c = FALSE;
 	cont->opt.t = FALSE;
-	if (argc == 2 && !ft_isnum(argv[1], 10)) //) || !ft_isalpha(argv[1][1]
+	if (argc == 2 && !ft_isnum(argv[1], 10))
 		parse_str(cont, argv[1]);
 	else
 		parse_arr(cont, argc, argv);

@@ -6,7 +6,7 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 17:48:20 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 19:06:17 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/14 22:44:34 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ static void	file_options(t_cont *cont, short done)
 	}
 	if (cont->opt.t == TRUE && done == TRUE)
 	{
+		cont->opt.c == TRUE ? ft_putstr("\e[38;5;46m") : 0;
 		ft_putstr_fd("Total number of moves: ", cont->fd);
 		ft_putendl_fd(ft_itoa(cont->total), cont->fd);
+		cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
 	}
 	if (cont->fd != 1 && done == TRUE)
 		close(cont->fd);
@@ -54,6 +56,7 @@ int			main(int argc, char **argv)
 		file_options(container, FALSE);
 		init_sort(container);
 		quicksort(container);
+		//experimental(container);
 		file_options(container, TRUE);
 		free_container(container);
 	}

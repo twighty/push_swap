@@ -6,7 +6,7 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:43:42 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 19:09:44 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/14 21:34:57 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,11 @@ void	sx(t_cont *c);
 */
 
 void		terminate(const char *str);
+
+/*
+** experimental.c
+*/
+
+void	experimental(t_cont *cont);
 
 #endif

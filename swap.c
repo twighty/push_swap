@@ -6,7 +6,7 @@
 /*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:28:55 by twight            #+#    #+#             */
-/*   Updated: 2019/07/13 19:17:56 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/14 21:16:35 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	sa(t_cont *c)
 		tmp->next = c->a_start;
 		c->a_start = tmp;
 		c->total++;
-		c->opt.c == TRUE ? ft_putstr("\e[m") : 0;
+		c->opt.c == TRUE ? ft_putstr("\e[38;5;214m") : 0;
 		ft_putendl_fd("sa", c->fd);
-		c->opt.c == TRUE ? ft_putstr("\e[2m") : 0;
+		c->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
 	}
 }
 
@@ -48,7 +48,9 @@ void	sb(t_cont *c)
 		tmp->next = c->b_start;
 		c->b_start = tmp;
 		c->total++;
+		c->opt.c == TRUE ? ft_putstr("\e[38;5;215m") : 0;
 		ft_putendl_fd("sb", c->fd);
+		c->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
 	}
 }
 
@@ -77,5 +79,7 @@ void	ss(t_cont *c)
 		tmp->next = c->b_start;
 		c->b_start = tmp;
 	}
+	c->opt.c == TRUE ? ft_putstr("\e[38;5;216m") : 0;
 	ft_putendl_fd("ss", c->fd);
+	c->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
 }
