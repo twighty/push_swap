@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:48:58 by twight            #+#    #+#             */
-/*   Updated: 2019/07/16 00:46:11 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/16 01:42:53 by akhmetsha        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	parse_line(t_cont *cont, char *line, int possible_error)
 	else if (!(possible_error = ft_strcmp(line, "rra")))
 		rra(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "rrb")))
-		rra(cont, FALSE);
+		rrb(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "rrr")))
 		rrr(cont);
 	else
