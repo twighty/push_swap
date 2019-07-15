@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
+/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:43:42 by twight            #+#    #+#             */
-/*   Updated: 2019/07/14 21:34:57 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/15 21:35:15 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 # define FALSE 0
 # define TRUE 1
 
+# define PUSH 0
+# define CHECK 1
+
+# define ERR_FILENAME "Program execution has been terminated (Error: could \
+not open the file with the specified name)"
+# define ERR_FILEREAD "Program execution has been terminated (Error: could \
+not read the file)"
 # define ERR_MEMALLOC "Program execution has been terminated (Error: could \
 not allocate enough memory)"
 # define ERR_NAN "Program execution has been terminated (Error: invalid \
@@ -28,8 +35,10 @@ values)"
 values)"
 # define ERR_NO_NUMBERS "Program execution has been terminated (Error: \
 insufficient number of values (must be at least two))"
+# define ERR_WRONG_MV "Program execution has been terminated (Error: \
+unknown or invalid command)"
 # define ERR_WRONG_OPTION "Program execution has been terminated (Error: \
-unknown option(s))"
+unknown or invalid option(s))"
 
 # define A_FIRST cont->a_start
 # define A_FIRST_VALUE cont->a_start->value
@@ -80,6 +89,7 @@ typedef struct 		s_cont
 	t_node			*a_end;
 	t_node			*b_end;
 	int				fd;
+	short			program;
 }					t_cont;
 
 /*
@@ -100,7 +110,7 @@ void		init_sort(t_cont *cont);
 ** parser.c
 */
 
-t_cont	    *parser(int argc, char **argv);
+t_cont	    *parser(int argc, char **argv, short program);
 
 /*
 ** push.c
@@ -138,7 +148,7 @@ void	rr(t_cont *cont);
 
 void	sa(t_cont *c);
 void	sb(t_cont *c);
-void	sx(t_cont *c);
+void	ss(t_cont *c);
 
 /*
 ** terminate.c

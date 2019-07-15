@@ -3,33 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akhmetsha <akhmetsha@student.42.fr>        +#+  +:+       +#+        */
+/*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:45:26 by twight            #+#    #+#             */
-/*   Updated: 2019/07/14 21:23:55 by akhmetsha        ###   ########.fr       */
+/*   Updated: 2019/07/15 19:55:40 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*
+** If flag -f is specified, tries to open the file with the specified name.
+** Otherwise, forces the program to quit.
+*/
+
+static int	parse_filename(char **argv, t_cont *c)
+{
+	if (c->opt.f == TRUE && c->opt.c == FALSE && c->opt.t == FALSE)
+	{
+		if ((c->fd = open(argv[2], O_RDONLY)) == -1)
+			terminate(ERR_FILENAME);
+		return (1);
+	}
+	else if (c->opt.f == TRUE && (c->opt.c == TRUE || c->opt.t == TRUE))
+	{
+		if ((c->fd = open(argv[3], O_RDONLY)) == -1)
+			terminate(ERR_FILENAME);
+		return (1);
+	}
+	else if (c->opt.f == FALSE)
+		c->fd = 1;
+	return (0);
+}
+
+/*
 ** Checks if any option flags are present.
 */
 
-static int	parse_options(char **argv, t_cont *c)
+static int	parse_options(char **argv, t_cont *c, int i, char type)
 {
-	int		i;
-
-	i = 1;
-	while (i <= 2)
+	while ((i <= 3 && type == 'a') ||(i <= 2 && type == 's'))
 	{
 		if ((argv[i][0] == '-' && ft_isalpha(argv[i][1]) && \
-		(i == 1 || \
-		(i == 2 && (c->opt.f == 1 || c->opt.c == 1 || c->opt.t == 1)))))
+		((i == 0 && type == 's') || i == 1 || \
+		(i == 2 && (c->opt.f == 1 || c->opt.c == 1 || c->opt.t == 1)))) || \
+		(i == 3 && c->program == CHECK && ((c->opt.f == 1 && c->opt.c == 1) || \
+		(c->opt.f == 1 && c->opt.t == 1) || (c->opt.c == 1 && c->opt.t == 1))))
 		{
 			if (argv[i][1] == 'f')
 				c->opt.f = TRUE;
-			else if (argv[i][1] == 'c' && c->opt.f != TRUE)
+			else if (argv[i][1] == 'c' && (c->program == CHECK || \
+			(c->opt.f != TRUE && c->program == PUSH)))
 				c->opt.c = TRUE;
 			else if (argv[i][1] == 't')
 				c->opt.t = TRUE;
@@ -52,7 +76,9 @@ static void	parse_arr(t_cont *cont, int argc, char **argv)
 {
 	int	i;
 
-	i = parse_options(argv, cont);
+	i = parse_options(argv, cont, 1, 'a');
+	if (cont->program == CHECK && cont->opt.f == TRUE)
+		i += parse_filename(argv, cont);
 	while (i < argc)
 	{
 		if (!ft_isint(argv[i], 0))
@@ -72,7 +98,7 @@ static void	parse_str(t_cont *cont, char *str)
 	size_t	i;
 
 	numbers = ft_strsplit(str, ' ');
-	i = 0;
+	i = parse_options(numbers, cont, 0, 's');
 	while (numbers[i])
 	{
 		if (!ft_isint(numbers[i], 0))
@@ -87,7 +113,7 @@ static void	parse_str(t_cont *cont, char *str)
 ** Initializes a stack, sends argv(s) to the functions which parse them.
 */
 
-t_cont		*parser(int argc, char **argv)
+t_cont		*parser(int argc, char **argv, short program)
 {
 	t_cont	*cont;
 
@@ -104,6 +130,7 @@ t_cont		*parser(int argc, char **argv)
 	cont->opt.f = FALSE;
 	cont->opt.c = FALSE;
 	cont->opt.t = FALSE;
+	cont->program = program;
 	if (argc == 2 && !ft_isnum(argv[1], 10))
 		parse_str(cont, argv[1]);
 	else
