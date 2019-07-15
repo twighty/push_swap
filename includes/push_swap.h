@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:43:42 by twight            #+#    #+#             */
-/*   Updated: 2019/07/16 00:05:49 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/16 00:42:48 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,24 +122,24 @@ void				quicksort(t_cont *cont);
 ** reverse_rotate.c
 */
 
-void				rra(t_cont *cont);
-void				rrb(t_cont *cont);
+void				rra(t_cont *cont, short rrr);
+void				rrb(t_cont *cont, short rrr);
 void				rrr(t_cont *cont);
 
 /*
 ** rotate.c
 */
 
-void				ra(t_cont *cont);
-void				rb(t_cont *cont);
+void				ra(t_cont *cont, short rr);
+void				rb(t_cont *cont, short rr);
 void				rr(t_cont *cont);
 
 /*
 ** swap.c
 */
 
-void				sa(t_cont *c);
-void				sb(t_cont *c);
+void				sa(t_cont *c, short ss);
+void				sb(t_cont *c, short ss);
 void				ss(t_cont *c);
 
 /*

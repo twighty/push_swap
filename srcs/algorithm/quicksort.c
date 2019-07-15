@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 00:44:59 by twight            #+#    #+#             */
-/*   Updated: 2019/07/16 00:10:21 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/16 00:45:19 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static void	optimize_rotate(t_cont *cont)
 	}
 	if (i < cont->b_size / 2)
 		while (B_FIRST_VALUE > value || B_LAST_VALUE < value)
-			rb(cont);
+			rb(cont, FALSE);
 	else
 		while (B_FIRST_VALUE > value || B_LAST_VALUE < value)
-			rrb(cont);
+			rrb(cont, FALSE);
 }
 
 static void	optimize_order(t_cont *cont)
@@ -54,10 +54,10 @@ static void	optimize_order(t_cont *cont)
 			return ;
 		if (i > cont->b_size / 2)
 			while (B_LAST_VALUE > B_FIRST_VALUE)
-				rrb(cont);
+				rrb(cont, FALSE);
 		else
 			while (B_LAST_VALUE > B_FIRST_VALUE)
-				rb(cont);
+				rb(cont, FALSE);
 	}
 }
 
@@ -70,7 +70,7 @@ void		move_ab(t_cont *cont)
 	done = 0;
 	if (A_FIRST && A_SECOND)
 		if (A_FIRST_VALUE > A_SECOND_VALUE)
-			sa(cont);
+			sa(cont, FALSE);
 	tmp = B_FIRST;
 	value = A_FIRST_VALUE;
 	while (tmp && value < tmp->value)
@@ -143,8 +143,8 @@ void		quicksort(t_cont *cont)
 				move_ab(cont);
 			if (A_SECOND && A_FIRST_VALUE > A_SECOND_VALUE && \
 			A_SECOND_VALUE > cont->pivot)
-				sa(cont);
-			(!is_ordered(cont)) ? ra(cont) : 0;
+				sa(cont, FALSE);
+			(!is_ordered(cont)) ? ra(cont, FALSE) : 0;
 		}
 	}
 	optimize_order(cont);

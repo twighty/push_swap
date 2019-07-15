@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:48:58 by twight            #+#    #+#             */
-/*   Updated: 2019/07/16 00:08:02 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/16 00:46:11 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	parse_line(t_cont *cont, char *line, int possible_error)
 {
 	if (!(possible_error = ft_strcmp(line, "sa")))
-		sa(cont);
+		sa(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "sb")))
-		sb(cont);
+		sb(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "ss")))
 		ss(cont);
 	else if (!(possible_error = ft_strcmp(line, "pa")))
@@ -25,15 +25,15 @@ static int	parse_line(t_cont *cont, char *line, int possible_error)
 	else if (!(possible_error = ft_strcmp(line, "pb")))
 		pb(cont);
 	else if (!(possible_error = ft_strcmp(line, "ra")))
-		ra(cont);
+		ra(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "rb")))
-		rb(cont);
+		rb(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "rr")))
 		rr(cont);
 	else if (!(possible_error = ft_strcmp(line, "rra")))
-		rra(cont);
+		rra(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "rrb")))
-		rra(cont);
+		rra(cont, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "rrr")))
 		rrr(cont);
 	else

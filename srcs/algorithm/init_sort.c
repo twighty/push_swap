@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:57:11 by twight            #+#    #+#             */
-/*   Updated: 2019/07/15 22:10:23 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/16 00:44:37 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,25 @@ int		is_ordered(t_cont *cont)
 void	init_sort_cont(t_cont *cont)
 {
 	if (A_FIRST && A_FIRST_VALUE > A_SECOND_VALUE)
-		sa(cont);
+		sa(cont, FALSE);
 	if (A_PENULT && A_LAST_VALUE < A_PENULT->value)
 	{
-		rra(cont);
+		rra(cont, FALSE);
 		while (A_PENULT && A_LAST_VALUE < A_PENULT->value)
 		{
 			pb(cont);
-			rb(cont);
-			rra(cont);
+			rb(cont, FALSE);
+			rra(cont, FALSE);
 		}
-		rra(cont);
-		sa(cont);
+		rra(cont, FALSE);
+		sa(cont, FALSE);
 		while (B_FIRST)
 		{
 			pa(cont);
-			ra(cont);
+			ra(cont, FALSE);
 		}
-		ra(cont);
-		ra(cont);
+		ra(cont, FALSE);
+		ra(cont, FALSE);
 	}
 }
 
@@ -54,25 +54,25 @@ void	init_sort(t_cont *cont)
 	while (A_LAST_VALUE < A_FIRST_VALUE)
 	{
 		if (A_FIRST_VALUE > A_SECOND_VALUE && A_LAST_VALUE != A_SECOND_VALUE)
-			sa(cont);
-		rra(cont);
+			sa(cont, FALSE);
+		rra(cont, FALSE);
 		if (A_FIRST_VALUE > A_SECOND_VALUE && A_LAST_VALUE != A_SECOND_VALUE)
-			sa(cont);
+			sa(cont, FALSE);
 		while (A_SECOND && A_LAST_VALUE > A_FIRST_VALUE && \
 		A_LAST_VALUE < A_SECOND_VALUE)
 		{
 			move_ab(cont);
-			rra(cont);
+			rra(cont, FALSE);
 			if (A_FIRST_VALUE > A_SECOND_VALUE && \
 			A_LAST_VALUE != A_SECOND_VALUE)
-				sa(cont);
+				sa(cont, FALSE);
 		}
 	}
 	while (B_FIRST)
 	{
 		pa(cont);
 		if (A_FIRST_VALUE > A_SECOND_VALUE && A_LAST_VALUE != A_SECOND_VALUE)
-			sa(cont);
+			sa(cont, FALSE);
 	}
 	init_sort_cont(cont);
 }
