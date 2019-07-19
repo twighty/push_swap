@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:43:42 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 19:43:28 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/19 23:46:27 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_opt
 	short			f;
 	short			c;
 	short			t;
+	short			v;
 }					t_opt;
 
 typedef struct		s_cont
@@ -149,9 +150,9 @@ void				ss(t_cont *c);
 void				terminate(short program, const char *str);
 
 /*
-** experimental.c
+** visualizer.c
 */
 
-void				experimental(t_cont *cont);
+void				visualiser(t_cont *cont, short stack);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:45:26 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 19:42:09 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/19 23:35:07 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ static int	parse_filename(char **argv, t_cont *c, char type)
 
 static int	parse_options(char **argv, t_cont *c, int i, char type)
 {
-	while ((i <= 3 && type == 'a') || (i <= 2 && type == 's'))
+	while ((i <= 4 && type == 'a') || (i <= 3 && type == 's'))
 	{
 		if ((argv[i][0] == '-' && ft_isalpha(argv[i][1]) && \
 		((i == 0 && type == 's') || i == 1 || \
-		(i == 2 && (c->opt.f == 1 || c->opt.c == 1 || c->opt.t == 1)))))
+		(i == 2 && (c->opt.f + c->opt.c + c->opt.t + c->opt.v == 1)) || \
+		(i == 3 && (c->opt.f + c->opt.c + c->opt.t + c->opt.v == 2)))))
 		{
 			if (argv[i][1] == 'f')
 				c->opt.f = TRUE;
@@ -61,6 +62,8 @@ static int	parse_options(char **argv, t_cont *c, int i, char type)
 				c->opt.c = TRUE;
 			else if (argv[i][1] == 't' && c->program == PUSH)
 				c->opt.t = TRUE;
+			else if (argv[i][1] == 'v')
+				c->opt.v = TRUE;
 			else
 				terminate(c->program, ERR_WR_FLAG);
 			i++;
@@ -136,6 +139,7 @@ t_cont		*parser(int argc, char **argv, short program)
 	cont->opt.f = FALSE;
 	cont->opt.c = FALSE;
 	cont->opt.t = FALSE;
+	cont->opt.v = FALSE;
 	cont->program = program;
 	if (argc == 2 && !ft_isnum(argv[1], 10))
 		parse_str(cont, argv[1]);

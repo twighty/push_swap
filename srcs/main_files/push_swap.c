@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 17:48:20 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 19:36:32 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/19 23:42:57 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ int			main(int argc, char **argv)
 	{
 		container = parser(argc, argv, PUSH);
 		file_options(container, FALSE);
+		if (container->opt.v == TRUE)
+		{
+			ft_putstr("\033[0;31m");
+			ft_putendl("Initial state:");
+			ft_putstr("\033[0m");
+			visualiser(container, TRUE);
+		}
 		init_sort(container);
 		quicksort(container);
 		file_options(container, TRUE);

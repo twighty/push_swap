@@ -6,7 +6,7 @@
 #    By: twight <twight@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/15 23:20:56 by twight            #+#    #+#              #
-#    Updated: 2019/07/15 23:57:03 by twight           ###   ########.fr        #
+#    Updated: 2019/07/20 00:56:50 by twight           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ CMNDS = $(CMNDS_DIR)push.c $(CMNDS_DIR)reverse_rotate.c $(CMNDS_DIR)rotate.c \
 		$(CMNDS_DIR)swap.c
 CMNDS_DIR = $(SRCS_DIR)commands/
 
-UTILS = $(UTILS_DIR)add.c $(UTILS_DIR)parser.c $(UTILS_DIR)terminate.c
+UTILS = $(UTILS_DIR)add.c $(UTILS_DIR)parser.c $(UTILS_DIR)terminate.c \
+		$(UTILS_DIR)visualiser.c
 UTILS_DIR = $(SRCS_DIR)utilities/
 
 CHECKER_C = $(MAIN_DIR)checker.c

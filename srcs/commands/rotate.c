@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:44:52 by twight            #+#    #+#             */
-/*   Updated: 2019/07/16 00:42:00 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/19 23:41:50 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	ra(t_cont *cont, short rr)
 		{
 			cont->total++;
 			cont->opt.c == TRUE ? ft_putstr("\e[38;5;70m") : 0;
+			cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 			ft_putendl_fd("ra", cont->fd);
 			cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
+			cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
 		}
 	}
 }
@@ -52,8 +54,10 @@ void	rb(t_cont *cont, short rr)
 		{
 			cont->total++;
 			cont->opt.c == TRUE ? ft_putstr("\e[38;5;71m") : 0;
+			cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 			ft_putendl_fd("rb", cont->fd);
 			cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
+			cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
 		}
 	}
 }
@@ -64,6 +68,8 @@ void	rr(t_cont *cont)
 	rb(cont, TRUE);
 	cont->total++;
 	cont->opt.c == TRUE ? ft_putstr("\e[38;5;72m") : 0;
+	cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 	ft_putendl_fd("rr", cont->fd);
 	cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
+	cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
 }

@@ -6,11 +6,27 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:48:58 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 19:37:08 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/20 00:45:51 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	free_container(t_cont *container)
+{
+	t_node	*tmp;
+
+	if (container->a_start)
+	{
+		while (container->a_start)
+		{
+			tmp = container->a_start->next;
+			free(container->a_start);
+			container->a_start = tmp;
+		}
+	}
+	free(container);
+}
 
 static int	parse_line(t_cont *cont, char *line, int possible_error)
 {
@@ -76,6 +92,14 @@ int			main(int argc, char **argv)
 	if (argc >= 2)
 	{
 		container = parser(argc, argv, CHECK);
+		if (container->opt.v == TRUE)
+		{
+			ft_putstr("\033[0;31m");
+			ft_putendl("Initial state:");
+			ft_putstr("\033[0m");
+			visualiser(container, TRUE);
+		}
 		parse_moves(container);
+		free_container(container);
 	}
 }
