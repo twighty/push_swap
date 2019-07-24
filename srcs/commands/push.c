@@ -6,58 +6,124 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:38:38 by twight            #+#    #+#             */
-/*   Updated: 2019/07/20 00:39:40 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/24 18:05:54 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pa(t_cont *cont)
+static void	push_a(t_cont *cont, t_node *node)
 {
-	t_node	*tmp;
+	t_node	*end;
 
-	if (B_FIRST)
+	if (node)
 	{
-		tmp = B_FIRST;
-		B_FIRST = tmp->next;
-		B_FIRST ? B_FIRST->prev = NULL : 0;
-		!(B_FIRST) ? B_LAST = NULL : 0;
-		A_FIRST ? A_FIRST->prev = tmp : 0;
-		tmp->next = A_FIRST;
-		A_FIRST = tmp;
-		!(A_FIRST->next) ? A_LAST = A_FIRST : 0;
+		if (!A_FIRST)
+		{
+			A_FIRST = node;
+			A_FIRST->prev = A_FIRST;
+			A_FIRST->next = A_FIRST;
+		}
+		else
+		{
+			end = A_FIRST->prev;
+			node->prev = end;
+			end->next = node;
+			node->next = A_FIRST;
+			A_FIRST->prev = node;
+			A_FIRST = node;
+		}
+		cont->a_size++;
 		cont->total++;
 		cont->opt.c == TRUE ? ft_putstr("\e[38;5;137m") : 0;
-		cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 		ft_putendl_fd("pa", cont->fd);
 		cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
-		cont->a_size++;
-		cont->b_size--;
-		cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
 	}
 }
 
-void	pb(t_cont *cont)
+void		pa(t_cont *cont)
 {
-	t_node	*tmp;
+	t_node	*node;
 
-	if (A_FIRST)
+	node = NULL;
+	if (cont->b_size)
 	{
-		tmp = A_FIRST;
-		A_FIRST = tmp->next;
-		A_FIRST ? A_FIRST->prev = NULL : 0;
-		!(A_FIRST) ? A_LAST = NULL : 0;
-		B_FIRST ? B_FIRST->prev = tmp : 0;
-		tmp->next = B_FIRST;
-		B_FIRST = tmp;
-		!(B_FIRST->next) ? B_LAST = B_FIRST : 0;
+		if (cont->b_size == 1)
+		{
+			node = B_FIRST;
+			B_FIRST = NULL;
+			node->prev = NULL;
+			node->next = NULL;
+		}
+		else
+		{
+			node = B_FIRST;
+			B_FIRST = B_FIRST->next;
+			node->prev->next = node->next;
+			node->next->prev = node->prev;
+			node->prev = NULL;
+			node->next = NULL;
+		}
+		cont->b_size--;
+	}
+	push_a(cont, node);
+	cont->opt.v == TRUE ? visualiser(cont) : 0;
+}
+
+static void	push_b(t_cont *cont, t_node *node)
+{
+	t_node	*end;
+
+	if (node)
+	{
+		if (!B_FIRST)
+		{
+			B_FIRST = node;
+			B_FIRST->prev = B_FIRST;
+			B_FIRST->next = B_FIRST;
+		}
+		else
+		{
+			end = B_FIRST->prev;
+			node->prev = end;
+			end->next = node;
+			node->next = B_FIRST;
+			B_FIRST->prev = node;
+			B_FIRST = node;
+		}
+		cont->b_size++;
 		cont->total++;
 		cont->opt.c == TRUE ? ft_putstr("\e[38;5;138m") : 0;
-		cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 		ft_putendl_fd("pb", cont->fd);
 		cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
-		cont->b_size++;
-		cont->a_size--;
-		cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
 	}
+}
+
+void		pb(t_cont *cont)
+{
+	t_node	*node;
+
+	node = NULL;
+	if (cont->a_size)
+	{
+		if (cont->a_size == 1)
+		{
+			node = A_FIRST;
+			A_FIRST = NULL;
+			node->prev = NULL;
+			node->next = NULL;
+		}
+		else
+		{
+			node = A_FIRST;
+			A_FIRST = A_FIRST->next;
+			node->prev->next = node->next;
+			node->next->prev = node->prev;
+			node->prev = NULL;
+			node->next = NULL;
+		}
+		cont->a_size--;
+	}
+	push_b(cont, node);
+	cont->opt.v == TRUE ? visualiser(cont) : 0;
 }

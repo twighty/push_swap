@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 23:54:40 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 19:41:44 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/24 00:47:09 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ void		add(t_node **head, t_node **tail, int value, short program)
 	new->next = NULL;
 	new->value = value;
 	new->prev = *tail;
+	new->index = -1;
 	*tail = new;
 	if (*head)
 	{
 		tmp = *head;
-		while (tmp->next && tmp->value != value)
+		while (tmp->next && tmp->value != value && tmp != *tail)
 			tmp = tmp->next;
 		if (tmp->value == value)
 		{

@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:43:42 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 23:46:27 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/24 18:44:25 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define PUSH 0
 # define CHECK 1
 
+# define FT_MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+
 # define ERR_FILENAME "program terminated, error: could not find the file"
 # define ERR_FILEREAD "program terminated, error: could not read the file"
 # define ERR_MEMALLOC "program terminated, error: could not allocate memory"
@@ -33,30 +35,18 @@
 # define ERR_WR_FLAG "program terminated, error: unknown or invalid option(s)"
 
 # define A_FIRST cont->a_start
-# define A_FIRST_VALUE cont->a_start->value
 
 # define A_SECOND cont->a_start->next
-# define A_SECOND_VALUE cont->a_start->next->value
-
-# define A_PENULT cont->a_end->prev
-
-# define A_LAST cont->a_end
-# define A_LAST_VALUE cont->a_end->value
 
 # define B_FIRST cont->b_start
-# define B_FIRST_VALUE cont->b_start->value
 
 # define B_SECOND cont->b_start->next
-# define B_SECOND_VALUE cont->b_start->next->value
-
-# define B_PENULT cont->b_end->prev
-
-# define B_LAST cont->b_end
-# define B_LAST_VALUE cont->b_end->value
 
 typedef struct		s_node
 {
 	int				value;
+	int				index;
+	short			keep;
 	struct s_node	*prev;
 	struct s_node	*next;
 }					t_node;
@@ -76,28 +66,36 @@ typedef struct		s_cont
 	int				a_size;
 	int				b_size;
 	int				total;
-	int				pivot;
 	t_node			*a_start;
 	t_node			*b_start;
 	t_node			*a_end;
-	t_node			*b_end;
 	int				fd;
 	short			program;
+	int				pairs;
+	t_node			*index_start;
 }					t_cont;
+
+typedef struct		s_shift
+{
+	t_node			*a_node;
+	t_node			*b_node;
+	int				a_direction;
+	int				b_direction;
+	int				size;
+	short			set;
+}					t_shift;
+
+typedef enum
+{
+	R,
+	RR
+}	t_direction;
 
 /*
 ** add.c
 */
 
 void				add(t_node **head, t_node **tail, int value, short program);
-
-/*
-** init_sort.c
-*/
-
-int					is_ordered(t_cont *cont);
-void				init_sort_cont(t_cont *cont);
-void				init_sort(t_cont *cont);
 
 /*
 ** parser.c
@@ -111,13 +109,6 @@ t_cont				*parser(int argc, char **argv, short program);
 
 void				pa(t_cont *cont);
 void				pb(t_cont *cont);
-
-/*
-** quicksort.c
-*/
-
-void				move_ab(t_cont *cont);
-void				quicksort(t_cont *cont);
 
 /*
 ** reverse_rotate.c
@@ -139,8 +130,8 @@ void				rr(t_cont *cont);
 ** swap.c
 */
 
-void				sa(t_cont *c, short ss);
-void				sb(t_cont *c, short ss);
+void				sa(t_cont *cont, t_node *first, t_node *second, short ss);
+void				sb(t_cont *cont, t_node *first, t_node *second, short ss);
 void				ss(t_cont *c);
 
 /*
@@ -153,6 +144,39 @@ void				terminate(short program, const char *str);
 ** visualizer.c
 */
 
-void				visualiser(t_cont *cont, short stack);
+void				visualiser(t_cont *cont);
+
+/*
+** sort.c
+*/
+
+void				sort(t_cont *cont);
+
+/*
+** index.c
+*/
+
+void				get_index(t_cont *cont);
+
+/*
+** align.c
+*/
+
+void				move_b(t_cont *cont, t_shift *shift);
+void				align_a(t_cont *cont);
+
+/*
+** order.c
+*/
+
+int					is_ordered(t_cont *cont);
+int					check_index(t_cont *cont, t_node *ind_start);
+void				order_stack(t_cont *cont);
+
+/*
+** shift.c
+*/
+
+void				opt_direction(t_cont *cont, t_shift *shift);
 
 #endif

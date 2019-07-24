@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 18:45:26 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 23:35:07 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/24 00:54:39 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	parse_arr(t_cont *cont, int argc, char **argv)
 	{
 		if (!ft_isint(argv[i], 0))
 			terminate(cont->program, ERR_NAN);
-		add(&(A_FIRST), &(A_LAST), ft_atoi(argv[i++]), cont->program);
+		add(&(A_FIRST), &(cont->a_end), ft_atoi(argv[i++]), cont->program);
 		cont->a_size++;
 	}
 }
@@ -112,7 +112,7 @@ static void	parse_str(t_cont *cont, char *str)
 	{
 		if (!ft_isint(numbers[i], 0))
 			terminate(cont->program, ERR_NAN);
-		add(&(A_FIRST), &(A_LAST), ft_atoi(numbers[i++]), cont->program);
+		add(&(A_FIRST), &(cont->a_end), ft_atoi(numbers[i++]), cont->program);
 		cont->a_size++;
 	}
 	ft_strsplit_free(&numbers);
@@ -130,8 +130,7 @@ t_cont		*parser(int argc, char **argv, short program)
 		terminate(program, ERR_MEMALLOC);
 	A_FIRST = NULL;
 	B_FIRST = NULL;
-	A_LAST = NULL;
-	B_LAST = NULL;
+	cont->a_end = NULL;
 	cont->index = 1;
 	cont->a_size = 0;
 	cont->b_size = 0;
@@ -147,5 +146,7 @@ t_cont		*parser(int argc, char **argv, short program)
 		parse_arr(cont, argc, argv);
 	if (cont->a_size < 2)
 		terminate(program, ERR_NO_NUMBERS);
+	cont->a_end->next = cont->a_start;
+	cont->a_start->prev = cont->a_end;
 	return (cont);
 }

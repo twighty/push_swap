@@ -6,7 +6,7 @@
 #    By: twight <twight@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/15 23:20:56 by twight            #+#    #+#              #
-#    Updated: 2019/07/20 00:56:50 by twight           ###   ########.fr        #
+#    Updated: 2019/07/24 17:41:45 by twight           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ LIBFT_DIR = ./libft/
 SRCS = $(ALG) $(CMNDS) $(UTILS)
 SRCS_DIR = ./srcs/
 
-ALG = $(ALG_DIR)init_sort.c $(ALG_DIR)quicksort.c
+ALG = $(ALG_DIR)align.c $(ALG_DIR)index.c $(ALG_DIR)order.c $(ALG_DIR)sort.c \
+		$(ALG_DIR)shift.c
 ALG_DIR = $(SRCS_DIR)algorithm/
 
 CMNDS = $(CMNDS_DIR)push.c $(CMNDS_DIR)reverse_rotate.c $(CMNDS_DIR)rotate.c \

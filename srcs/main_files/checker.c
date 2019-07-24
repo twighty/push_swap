@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:48:58 by twight            #+#    #+#             */
-/*   Updated: 2019/07/20 00:45:51 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/24 18:55:12 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 static void	free_container(t_cont *container)
 {
 	t_node	*tmp;
+	int		i;
 
-	if (container->a_start)
+	tmp = container->a_start;
+	i = 0;
+	while (i < container->a_size)
 	{
-		while (container->a_start)
-		{
-			tmp = container->a_start->next;
-			free(container->a_start);
-			container->a_start = tmp;
-		}
+		tmp = container->a_start->next;
+		free(container->a_start);
+		container->a_start = tmp;
+		i++;
 	}
 	free(container);
 }
@@ -31,9 +32,9 @@ static void	free_container(t_cont *container)
 static int	parse_line(t_cont *cont, char *line, int possible_error)
 {
 	if (!(possible_error = ft_strcmp(line, "sa")))
-		sa(cont, FALSE);
+		sa(cont, A_FIRST, A_SECOND, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "sb")))
-		sb(cont, FALSE);
+		sb(cont, B_FIRST, B_SECOND, FALSE);
 	else if (!(possible_error = ft_strcmp(line, "ss")))
 		ss(cont);
 	else if (!(possible_error = ft_strcmp(line, "pa")))
@@ -57,20 +58,8 @@ static int	parse_line(t_cont *cont, char *line, int possible_error)
 	return (possible_error);
 }
 
-static void	parse_moves(t_cont *cont)
+static void	show_result(t_cont *cont)
 {
-	char	*line;
-	int		result;
-
-	while ((result = get_next_line(cont->fd, &line) > 0))
-	{
-		if (result == -1)
-			terminate(cont->program, ERR_FILEREAD);
-		if (!ft_strcmp(line, "Total number of moves:"))
-			break ;
-		if (parse_line(cont, line, 0) == -1)
-			terminate(cont->program, ERR_WRONG_MV);
-	}
 	if (is_ordered(cont))
 	{
 		cont->opt.c == TRUE ? ft_putstr("\e[38;5;010m") : 0;
@@ -85,6 +74,27 @@ static void	parse_moves(t_cont *cont)
 	cont->opt.f == TRUE ? close(cont->fd) : 0;
 }
 
+static void	parse_moves(t_cont *cont)
+{
+	char	*line;
+	int		result;
+
+	while ((result = get_next_line(cont->fd, &line) > 0))
+	{
+		if (result == -1)
+			terminate(cont->program, ERR_FILEREAD);
+		if (!ft_strcmp(line, "Total number of moves:"))
+		{
+			free(line);
+			break ;
+		}
+		if (parse_line(cont, line, 0) == -1)
+			terminate(cont->program, ERR_WRONG_MV);
+		result ? free(line) : 0;
+	}
+	show_result(cont);
+}
+
 int			main(int argc, char **argv)
 {
 	t_cont	*container;
@@ -97,7 +107,7 @@ int			main(int argc, char **argv)
 			ft_putstr("\033[0;31m");
 			ft_putendl("Initial state:");
 			ft_putstr("\033[0m");
-			visualiser(container, TRUE);
+			visualiser(container);
 		}
 		parse_moves(container);
 		free_container(container);

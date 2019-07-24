@@ -6,7 +6,7 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 23:20:03 by twight            #+#    #+#             */
-/*   Updated: 2019/07/20 00:43:50 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/24 18:35:53 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,30 @@ static void	print_row(t_node *node)
 		ft_putchar(' ');
 }
 
-void		visualiser(t_cont *cont, short stack)
+void		visualiser(t_cont *cont)
 {
 	t_node	*tmp_a;
 	t_node	*tmp_b;
+	int		i;
+	int		j;
 
-	if (stack == FALSE)
-		ft_putstr("Move: ");
-	else
+	tmp_a = cont->a_start;
+	tmp_b = cont->b_start;
+	i = 0;
+	j = 0;
+	ft_putendl("|   Stack A   |   Stack B   |");
+	while (i < cont->a_size || j < cont->b_size)
 	{
-		tmp_a = cont->a_start;
-		tmp_b = cont->b_start;
-		ft_putendl("|   Stack A   |   Stack B   |");
-		while (tmp_a || tmp_b)
-		{
-			if (tmp_a)
-				print_row(tmp_a);
-			else
-				ft_putstr("|             ");
-			if (tmp_b)
-				print_row(tmp_b);
-			else
-				ft_putstr("|             ");
-			ft_putendl("|");
-			tmp_a ? tmp_a = tmp_a->next : 0;
-			tmp_b ? tmp_b = tmp_b->next : 0;
-		}
+		if (i++ < cont->a_size)
+			print_row(tmp_a);
+		else
+			ft_putstr("|             ");
+		if (j++ < cont->b_size)
+			print_row(tmp_b);
+		else
+			ft_putstr("|             ");
+		ft_putendl("|");
+		tmp_a ? tmp_a = tmp_a->next : 0;
+		tmp_b ? tmp_b = tmp_b->next : 0;
 	}
 }

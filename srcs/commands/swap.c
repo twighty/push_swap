@@ -6,72 +6,73 @@
 /*   By: twight <twight@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 01:28:55 by twight            #+#    #+#             */
-/*   Updated: 2019/07/19 23:42:23 by twight           ###   ########.fr       */
+/*   Updated: 2019/07/24 18:06:29 by twight           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(t_cont *cont, short ss)
+void	sa(t_cont *cont, t_node *first, t_node *second, short ss)
 {
-	t_node *tmp;
+	t_node	*prev;
+	t_node	*next;
 
-	if (A_FIRST && A_SECOND)
+	if (first && second)
 	{
-		tmp = A_SECOND;
-		A_SECOND->next ? A_SECOND->next->prev = A_FIRST : 0;
-		!A_SECOND->next ? A_LAST = A_FIRST : 0;
-		A_SECOND = A_SECOND->next;
-		A_FIRST->prev = tmp;
-		tmp->prev = NULL;
-		tmp->next = A_FIRST;
-		A_FIRST = tmp;
+		prev = first->prev;
+		next = second->next;
+		prev->next = second;
+		second->prev = prev;
+		first->next = next;
+		next->prev = first;
+		second->next = first;
+		first->prev = second;
+		A_FIRST = second;
 		if (ss == FALSE)
 		{
 			cont->total++;
 			cont->opt.c == TRUE ? ft_putstr("\e[38;5;214m") : 0;
-			cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 			ft_putendl_fd("sa", cont->fd);
 			cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
-			cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
+			cont->opt.v == TRUE ? visualiser(cont) : 0;
 		}
 	}
 }
 
-void	sb(t_cont *cont, short ss)
+void	sb(t_cont *cont, t_node *first, t_node *second, short ss)
 {
-	t_node *tmp;
+	t_node	*prev;
+	t_node	*next;
 
-	if (B_FIRST && B_SECOND)
+	if (first && second)
 	{
-		tmp = B_SECOND;
-		B_SECOND->next ? B_SECOND->next->prev = B_FIRST : 0;
-		!B_SECOND->next ? B_LAST = B_FIRST : 0;
-		B_SECOND = B_SECOND->next;
-		B_FIRST->prev = tmp;
-		tmp->prev = NULL;
-		tmp->next = B_FIRST;
-		B_FIRST = tmp;
+		prev = first->prev;
+		next = second->next;
+		prev->next = second;
+		second->prev = prev;
+		first->next = next;
+		next->prev = first;
+		second->next = first;
+		first->prev = second;
+		B_FIRST = second;
 		if (ss == FALSE)
 		{
 			cont->total++;
 			cont->opt.c == TRUE ? ft_putstr("\e[38;5;215m") : 0;
-			cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 			ft_putendl_fd("sb", cont->fd);
 			cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
-			cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
+			cont->opt.v == TRUE ? visualiser(cont) : 0;
 		}
 	}
 }
 
 void	ss(t_cont *cont)
 {
-	sa(cont, TRUE);
-	sb(cont, TRUE);
+	sa(cont, A_FIRST, A_SECOND, TRUE);
+	sb(cont, B_FIRST, B_SECOND, TRUE);
 	cont->total++;
 	cont->opt.c == TRUE ? ft_putstr("\e[38;5;216m") : 0;
-	cont->opt.v == TRUE ? visualiser(cont, FALSE) : 0;
 	ft_putendl_fd("ss", cont->fd);
 	cont->opt.c == TRUE ? ft_putstr("\e[0m") : 0;
-	cont->opt.v == TRUE ? visualiser(cont, TRUE) : 0;
+	cont->opt.v == TRUE ? visualiser(cont) : 0;
 }
